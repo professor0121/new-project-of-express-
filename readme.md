@@ -1,48 +1,79 @@
-the basic code for running a express js server is.
-```js
-const express =require('express')
-const app=express();
+## API Routes
 
-const PORT=3000;
+### User Routes
 
-app.get('/',(req,res)=>{
-    res.send("hello abhishek bhaiya")
-})
+#### POST /user/register
+- Registers a new user.
 
-app.listen(PORT,()=>{
-    console.log("app is running")
-})
-```
-In the above code  we can see that the express server functionality to use it efficiently.
-```js
-app.get('/about', (req, res) => {
-    // res.sendFile(path.join(__dirname,'about.html'));
-    res.sendFile(path.join(__dirname, 'htmlFiles/navbar.html'));
-    // res.json({"abhi":19})
-})
-```
+### HTTP Mathod
 
-1. I have a static folder which i want to server as a public.
-```js
-app.use(express.static(path.join(__dirname, 'htmlFiles')));
-```
+'POST'
 
-2. middle ware is vary importent thing to handle the req and res .
-```js
-// middle ware 
-const abhiMiddleware = (req, res, next) => {
-    console.log(res);
-    next();  
-}
-app.use(abhiMiddleware);
-```
+- Request body:
+-
 
+  ```json
+  {
+    "email": "user@example.com",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "password": "password123"
+  }
+  ```
+- Response:
+  ```json
+  {
+    "token": "jwt_token",
+    "user": {
+      "_id": "user_id",
+      "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+      },
+      "email": "user@example.com"
+    }
+  }
+  ```
 
-3. we can create a middle ware like this type  
-```js
-app.get('/hello/:name',(req,res)=>{
-    res.send('hello'+req.params.name)
-})
+#### POST /user/login
+- Logs in an existing user.
+- Request body:
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "password123"
+  }
+  ```
+- Response:
+  ```json
+  {
+    "token": "jwt_token",
+    "user": {
+      "_id": "user_id",
+      "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+      },
+      "email": "user@example.com"
+    }
+  }
+  ```
 
-```
-in it the name is act like a variable which is used for dynamic changes
+#### GET /user/profile
+
+- Retrieves the profile of the authenticated user.
+- Headers:
+  - `Authorization: Bearer jwt_token`
+- Response:
+  ```json
+  {
+    "_id": "user_id",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "user@example.com"
+  }
+  ```
