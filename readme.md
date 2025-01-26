@@ -114,7 +114,7 @@
 
 ```
 
-Response Example:
+## Response Example:
 ```json
 {
   "token": "jwt_token",
@@ -132,5 +132,81 @@ Response Example:
       "vehicleType": "car"
     }
   }
+}
+```
+
+# POST /captain/login
+
+- Logs in an existing captain.
+
+## HTTP Method: POST
+
+### Request Body:
+```JSON
+{
+  "email": "captain@example.com",
+  "password": "password123"
+}
+```
+
+### Response:
+```json
+{
+  "token": "jwt_token",
+  "captain": {
+    "_id": "captain_id",
+    "fullname": {
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "email": "captain@example.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+
+# GET /captain/profile
+- Retrieves the profile of the authenticated captain.
+## HTTP Method: GET
+
+#Headers:
+
+- Authorization: Bearer jwt_token
+## Response:
+```json
+{
+  "_id": "captain_id",
+  "fullname": {
+    "firstname": "Jane",
+    "lastname": "Doe"
+  },
+  "email": "captain@example.com",
+  "vehicle": {
+    "color": "Red",
+    "plate": "ABC123",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+# GET /captain/logout
+- Logs out the authenticated captain.
+## HTTP Method: GET
+
+# Headers:
+
+- Authorization: Bearer jwt_token
+## Response:
+
+```json
+
+{
+  "message": "Logged out successfully"
 }
 ```
